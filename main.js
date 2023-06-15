@@ -68,10 +68,23 @@ function ageCalc() {
   const dayDif = curDay - day;
   const monthDif = curMonth - month;
   const yearDif = curYear - year;
-  outputs[2].innerHTML = dayDif;
-  outputs[1].innerHTML = monthDif;
-  outputs[0].innerHTML = yearDif;
+
+  let curValues = [0,0,0];
+  const increment = 1;
+  const interval = setInterval(function () {
+    if (curValues[0] >= dayDif && curValues[1] >= monthDif && curValues[2] >= yearDif) {
+      clearInterval(interval);
+    }
+    outputs[2].innerHTML = curValues[0];
+    outputs[1].innerHTML = curValues[1];
+    outputs[0].innerHTML = curValues[2];
+    curValues[0] = Math.min(dayDif,curValues[0]+increment);
+    curValues[1] = Math.min(monthDif,curValues[1]+increment);
+    curValues[2] = Math.min(yearDif,curValues[2]+increment);
+  }, 100);
 }
+
+
 
 function getDaysinMonth(month, year) {
   return new Date(year, month, 0).getDate();
